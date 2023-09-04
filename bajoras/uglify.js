@@ -25,9 +25,7 @@ recursive(srcDir, ['*.json', '*.ico'], (err, files) => {
                         join_vars: true,
                         drop_console: true
                     },
-                    mangle: {
-                        toplevel: true
-                    },
+                    mangle: true,
                 }); // Uglify the file
 
                 if (result.error) return console.log(`Uglify error in ${file}: `, result.error);
