@@ -18,15 +18,23 @@ const prefab = document.querySelector(POST_PREFAB_SELECTOR)
 if (prefab) {
     const list = prefab.parentElement
 
+
+
     getInstagramPosts.then(posts => {
-        console.log(posts)
+        if(posts.length === 0) {
+            const igSectionEl = document.querySelector('.instagram-section')
+            igSectionEl.parentElement.removeChild(igSectionEl)
 
-        posts.forEach(post => {
-            const postEl = prefab.cloneNode(true)
-            postEl.style.backgroundImage = `url(${post.media_url})`
-            list.appendChild(postEl)
-        })
+            list.removeChild(prefab)
+        } else {
+            posts.forEach(post => {
+                const postEl = prefab.cloneNode(true)
+                postEl.style.backgroundImage = `url(${post.media_url})`
+                list.appendChild(postEl)
+            })
+        }
 
-        list.removeChild(prefab)
+
+
     })
 }
