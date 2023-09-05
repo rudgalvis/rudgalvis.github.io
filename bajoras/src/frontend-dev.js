@@ -19,22 +19,23 @@ if (prefab) {
     const list = prefab.parentElement
 
 
+    try {
+        getInstagramPosts.then(posts => {
+            if (posts.length === 0) {
+                const igSectionEl = document.querySelector('.instagram-section')
+                igSectionEl.parentElement.removeChild(igSectionEl)
 
-    getInstagramPosts.then(posts => {
-        if(posts.length === 0) {
-            const igSectionEl = document.querySelector('.instagram-section')
-            igSectionEl.parentElement.removeChild(igSectionEl)
+                list.removeChild(prefab)
+            } else {
+                posts.forEach(post => {
+                    const postEl = prefab.cloneNode(true)
+                    postEl.style.backgroundImage = `url(${post.media_url})`
+                    list.appendChild(postEl)
+                })
+            }
 
-            list.removeChild(prefab)
-        } else {
-            posts.forEach(post => {
-                const postEl = prefab.cloneNode(true)
-                postEl.style.backgroundImage = `url(${post.media_url})`
-                list.appendChild(postEl)
-            })
-        }
-
-
-
-    })
+        })
+    } catch (e) {
+        console.error(e)
+    }
 }
